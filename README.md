@@ -1,0 +1,59 @@
+# Fastx Compressor
+
+Prepare fastx files for more efficient compression
+
+* Free software: MIT license
+* Documentation: https://fastx-compressor.readthedocs.io.
+
+
+Description
+--------
+
+Fastq files are used to describe raw DNA sequence data. Each record in a fastq file represents a single sequence output by the sequencer and consists of three parts: a sequence id, the sequence itself, and a quality score. Records are stored as sequential 4 line blocks as such
+
+```
+@D00547:847:HYHNTBCXX:2:2104:9165:16877 BX:Z:CTGCGAGGTCATGCCG-1
+GGCATGACCTCTGCGAGGTCATGCCGCGGCCGGGCTGGGCGACGGGCTCGCCGATGCGGCGTCCCGCCCCCGCTGGTCCTCGGCGTCCCGGCCGGACGCGCTGGCGGAGCCCGAAGNGCTGGAGGAA
++
+AAAAGGIGAG.GGAGGAGAGGGIIGGGGGIGGGGGGII<AG<GGAGAGIIAGGG<GGAGAGGG<GGGGIG.GAGAG.<.GG.GG<GGG<GAAA<GGGGGGGIIIGGI.GG.GGAGG#<<<GGGGG<A
+@D00547:847:HYHNTBCXX:1:1110:13715:33709 BX:Z:CTGCGAGGTCGCGGTT-1
+CCAGCGCCGTGGCGCCAATATATAAGGCCAGCCCGGCCAACATCACCGGTCGACGCCCCCAGCGATCGCACAACCGGCCCCACACCACCACCCCGAACGCGAACGCCAGGAAATACACCGAAAGGGT
++
+IGIIIGG<AAAAGGGGIIIIIGIIIGGIGGGGGGGIGIGIIIGGIIGI<AGIIIIIIIIIG.GAGGGGIGGGIIIGGGAGGGIAGGGIIIGGIIIGGIGGGGIIIIIIIGGGGGGGGGIGGAGGGI<
+```
+
+Fastq files can be compressed more efficiently if they are organized into long runs of the same type of record. For example:
+
+```
+# BLOCK_SIZE 2
+@D00547:847:HYHNTBCXX:2:2104:9165:16877 BX:Z:CTGCGAGGTCATGCCG-1
+@D00547:847:HYHNTBCXX:1:1110:13715:33709 BX:Z:CTGCGAGGTCGCGGTT-1
+GGCATGACCTCTGCGAGGTCATGCCGCGGCCGGGCTGGGCGACGGGCTCGCCGATGCGGCGTCCCGCCCCCGCTGGTCCTCGGCGTCCCGGCCGGACGCGCTGGCGGAGCCCGAAGNGCTGGAGGAA
+CCAGCGCCGTGGCGCCAATATATAAGGCCAGCCCGGCCAACATCACCGGTCGACGCCCCCAGCGATCGCACAACCGGCCCCACACCACCACCCCGAACGCGAACGCCAGGAAATACACCGAAAGGGT
+AAAAGGIGAG.GGAGGAGAGGGIIGGGGGIGGGGGGII<AG<GGAGAGIIAGGG<GGAGAGGG<GGGGIG.GAGAG.<.GG.GG<GGG<GAAA<GGGGGGGIIIGGI.GG.GGAGG#<<<GGGGG<A
+IGIIIGG<AAAAGGGGIIIIIGIIIGGIGGGGGGGIGIGIIIGGIIGI<AGIIIIIIIIIG.GAGGGGIGGGIIIGGGAGGGIAGGGIIIGGIIIGGIGGGGIIIIIIIGGGGGGGGGIGGAGGGI<
+```
+
+This program should take a fastq file and block size as arguments and output a blocked fastq file. Output should be to `stdout`.
+
+```
+$ fastx_compressor <N> <fastq file> 
+# BLOCK_SIZE N
+...
+```
+
+To build
+
+```
+$ python setup.py develop
+```
+
+
+Credits
+---------
+
+This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+
