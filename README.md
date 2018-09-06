@@ -2,10 +2,6 @@
 
 Prepare fastx files for more efficient compression
 
-* Free software: MIT license
-* Documentation: https://fastx-compressor.readthedocs.io.
-
-
 Description
 --------
 
