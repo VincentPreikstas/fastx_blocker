@@ -28,7 +28,7 @@ setup(
     version='0.1.0',
     description="Prepare fastx files for more efficient compression",
     long_description=readme,
-    author="David Danko",
+    author="Vincent Preikstas",
     author_email='david@longtailbio.com',
     url='https://github.com/dcdanko/fastx_compressor',
     packages=find_packages(include=['fastx_compressor']),
