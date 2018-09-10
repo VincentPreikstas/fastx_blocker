@@ -8,15 +8,15 @@ def block_fastq_file(fastq_file, block_size=1000):
     blocks = ["", "", "", ""]
     counter = 0
     for line in fastq_file:
-        blocks[counter % 4] += "\n" + line
+        blocks[counter % 4] += line
         counter += 1
             
 
     finishedString = ""
     for temp in blocks:
-        finishedString += "\n" + temp
+        finishedString += temp
 
-    finishedString.strip()
+
 
 
     return finishedString
