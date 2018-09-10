@@ -11,6 +11,7 @@ from .fastx_compressor import block_fastq_file
 @click.argument('block_size', type=int)
 @click.argument('fastx_file', type=click.File('r'))
 def main(block_size, fastx_file):
+    print(block_fastq_file(block_size, fastx_file))
     """Console script for fastx_compressor."""
     pass
 
