@@ -18,7 +18,7 @@ def block_fastq_file(fastq_file, block_size=1000):
     for line in fastq_file:
         blocks[counter % 4] += line
         counter += 1
-        if counter // BLOCK_LENGTH == block_size:
+        if counter // RECORD_LENGTH == block_size:
             for temp in blocks:
                 finishedString += temp
             
@@ -32,7 +32,7 @@ def block_fastq_file(fastq_file, block_size=1000):
     for temp in blocks:
         finishedString += temp
 
-    totalSize = counter // BLOCK_LENGTH
+    totalSize = counter // RECORD_LENGTH
     totalSize = str(totalSize)
     totalSize = "# BLOCK_SIZE " + totalSize + "\n"
     finishedString = totalSize + finishedString

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """Console script for fastx_compressor."""
-
+from sys import stdout
 import click
 
 from .fastx_compressor import block_fastq_file
@@ -13,7 +13,7 @@ from .fastx_compressor import block_fastq_file
 def main(fastx_file, block_size=1000):
     """Console script for fastx_compressor."""
     for block in block_fastq_file(fastx_file, block_size):
-        print(block)
+        stdout.write(block)
     
 
 
