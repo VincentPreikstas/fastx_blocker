@@ -6,11 +6,10 @@
 
 "VERSION 1"
 
-
+RECORD_LENGTH = 4
 
 def block_fastq_file(fastq_file, block_size=1000):
-    #globalish variables
-    BLOCK_LENGTH = 4
+    """Yield blocks from the file."""
     finishedString = ""
     blocks = ["", "", "", ""]
     counter = 0
@@ -19,35 +18,24 @@ def block_fastq_file(fastq_file, block_size=1000):
     for line in fastq_file:
         blocks[counter % 4] += line
         counter += 1
-        #Check for when block size achieved
-        if (counter / BLOCK_LENGTH == block_size):
+        if counter // BLOCK_LENGTH == block_size:
             for temp in blocks:
                 finishedString += temp
             
-            finishedString = "Total in block: " + str(block_size) +"\n" + finishedString
+            finishedString = "# BLOCK_SIZE " + str(block_size) +"\n" + finishedString
 
-            #yield block and reset variables for next block
             yield finishedString
             finishedString = ""
             blocks = ["", "", "", ""]
             counter = 0
 
-            
-
-    #build final incomplete block
     for temp in blocks:
         finishedString += temp
-    totalSize = counter / BLOCK_LENGTH
 
-    totalSize = int(totalSize)
-
+    totalSize = counter // BLOCK_LENGTH
     totalSize = str(totalSize)
-    totalSize = "Total in block: " + totalSize + "\n"
+    totalSize = "# BLOCK_SIZE " + totalSize + "\n"
     finishedString = totalSize + finishedString
-
-
-
-
 
     yield finishedString
 
