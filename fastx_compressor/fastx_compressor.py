@@ -16,7 +16,7 @@ def block_fastq_file(fastq_file, block_size=1000):
 
 
     for line in fastq_file:
-        blocks[counter % 4] += line
+        blocks[counter % RECORD_LENGTH] += line
         counter += 1
         if counter // RECORD_LENGTH == block_size:
             for temp in blocks:
@@ -40,5 +40,27 @@ def block_fastq_file(fastq_file, block_size=1000):
     yield finishedString
 
 
-def deblock_fastq_file(fastq_file, block_size=1000):
-    blocks = ["", "", "", ""]
+def deblock_fastq_file(fastq_file):
+    """Rebuilds original file"""
+    counter = 0
+
+    for line in fastq_file:
+        if counter == 0:
+            print('!!!' + line)
+            numberOfBlocks = int(line.split()[2])
+            print(line)
+            numberOfLines = numberOfBlocks * RECORD_LENGTH + 1
+            blocks = [""] * numberOfBlocks
+            counter += 1
+
+        else:
+            blocks[(counter - 1) % numberOfBlocks] += line
+            counter += 1
+
+            if counter % numberOfLines == 0:
+                counter = 0
+                finishedString = ""
+                for temp in blocks:
+                    finishedString += temp
+
+                yield finishedString
