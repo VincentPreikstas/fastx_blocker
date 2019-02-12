@@ -34,7 +34,8 @@ setup(
     packages=find_packages(include=['fastx_compressor']),
     entry_points={
         'console_scripts': [
-            'fastx_compressor=fastx_compressor.cli:main'
+            'precompress=fastx_compressor.cli:precompress',
+            'deprecompress=fastx_compressor.cli:deprecompress'
         ]
     },
     include_package_data=True,

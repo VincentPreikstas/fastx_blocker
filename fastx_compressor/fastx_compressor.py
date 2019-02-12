@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 """Main module."""
 
 "VERSION 1"
@@ -46,9 +45,7 @@ def deblock_fastq_file(fastq_file):
 
     for line in fastq_file:
         if counter == 0:
-            print('!!!' + line)
             numberOfBlocks = int(line.split()[2])
-            print(line)
             numberOfLines = numberOfBlocks * RECORD_LENGTH + 1
             blocks = [""] * numberOfBlocks
             counter += 1
